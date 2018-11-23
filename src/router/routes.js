@@ -5,25 +5,25 @@ const routes = [
     component: () => import('layouts/MyLayout.vue'),
     children: [
       {
-         path: '', component: () => import('pages/Index.vue'),
-         meta: {
-           requiresAuth: true
-         }
+        path: '',
+        component: () => import('pages/Index.vue'),
+        meta: {
+          requiresAuth: true
+        }
       }
     ]
   },
   {
     path: '/login',
-    component:() => import('layouts/EmptyLayout.vue'),
+    component: () => import('layouts/EmptyLayout.vue'),
     children: [
       {
-        path: '', component:() => import ('pages/Login.vue')
+        path: '', component: () => import('pages/Login.vue')
       }
     ]
   }
 ]
-
-// Always leave this as last one
+/* Always leave this as last one */
 if (process.env.MODE !== 'ssr') {
   routes.push({
     path: '*',

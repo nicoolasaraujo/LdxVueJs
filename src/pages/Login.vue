@@ -23,42 +23,58 @@
           dark
           helper= "Digite seu login ldap"
         >
-        <q-input suffix="@gmail.com" v-model="username" :float-label="capitalize($t('label.user'))"/>
+        <q-input :suffix="" v-model="username" :float-label="capitalize($t('label.user'))"/>
         </q-field>
         <q-field
         >
         <q-input type= "password" v-model="password" :float-label="capitalize($t('label.password'))"/>
         </q-field>
-        <q-btn  @click="submit" label="Save">
+        <q-btn @click="submit" label="Save">
         </q-btn>
-        {{fullUsername}}
       </q-card-main>
     </q-card>
-  </q-page>
+  </q-page>/
 </template>
 
 <script>
 import { format } from 'quasar'
-
-
+import  axios  from 'axios';
 const { capitalize } = format
 
 export default {
   name: 'Login',
-  //Modelo de dados
-  data(){
+  //  Modelo de dados
+  data () {
     return {
-      username : undefined,
-      password : undefined,
+      username: undefined,
+      password: undefined,
+      ldxEmail: '@landix.com.br',
       capitalize
     }
   },
   //Funções que esperam algum retorno
   computed:{
-    fullUsername: function(){return this.username ? this.username + '@landix.com.br': undefined}
+    fullUsername: function(){ return this.username ? this.username + this.ldxEmail: undefined },
+    dataSent: function () {
+      var data = {"UserName": this.username, "PassWd": this.password}
+      return data
+    }
   },
-  methods:{
-    submit () {console.log('Usuário' + computed.fullUsername + 'Senha ' + password)}
+  methods: {
+    submit () {
+       console.log('Usuário' + this.fullUsername + 'Senha ' + this.password)
+       axios.post('http://localhost:5000/api/LoginController',this.dataSent)
+       .then(response => {
+          console.log("Deu certo")
+          alert("Bem vindo "+ this.username)
+        })
+       .catch(e => {console.log("Deu ruim")})
+    }
+  },
+  watch: {
+    username: data => {
+        console.log('Assistindo '+ data)
+    }
   }
 }
 </script>

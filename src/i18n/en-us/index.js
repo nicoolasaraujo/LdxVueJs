@@ -4,7 +4,7 @@
 export default {
   failed: 'Action failed',
   success: 'Action was successful',
-  label:{
+  label: {
     user: 'usuário',
     password: 'senha'
   }
