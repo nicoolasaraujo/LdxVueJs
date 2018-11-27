@@ -1,9 +1,8 @@
 // This is just an example,
 // so you can safely delete all default props below
 export default {
-    label:{
-      user: 'usuário',
-      password: 'senha'
-    }
+  label: {
+    user: 'usuário',
+    password: 'senha'
   }
-  
+}

@@ -38,9 +38,7 @@
 
 <script>
 import { format } from 'quasar'
-import  axios  from 'axios';
 const { capitalize } = format
-import { LocalStorage, SessionStorage  } from 'quasar'
 
 export default {
   name: 'Login',
@@ -53,29 +51,29 @@ export default {
       capitalize
     }
   },
-  //Funções que esperam algum retorno
-  computed:{
-    fullUsername: function(){ return this.username ? this.username + this.ldxEmail: undefined },
+  computed: {
+    fullUsername: function () { return this.username ? this.username + this.ldxEmail : undefined },
     dataSent: function () {
-      var data = {"username": this.fullUsername, "password": this.password}
+      var data = {'username': this.fullUsername, 'password': this.password}
       return data
     }
   },
   methods: {
     submit () {
-       console.log('Usuário' + this.fullUsername + 'Senha ' + this.password)
-       axios.post('/landix/login/',this.dataSent)
-       .then(response => {
-          console.log(response.data.)
-          console.log("Deu certo")
+      console.log('Usuário' + this.fullUsername + 'Senha ' + this.password)
+      this.$axios.post('/landix/login/', this.dataSent)
+        .then(response => {
+          this.$emmit('logged')
+          console.log(response)
+          console.log('Deu certo')
           // alert("Bem vindo "+ )
         })
-       .catch(e => {console.log("Deu ruim")})
+        .catch(e => { console.log('Deu ruim ') })
     }
   },
   watch: {
     username: data => {
-        console.log('Assistindo '+ data)
+      console.log('Assistindo ' + data)
     }
   }
 }

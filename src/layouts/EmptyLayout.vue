@@ -8,7 +8,7 @@
           Login
         </q-toolbar-title>
       </q-toolbar>
-    </q-layout-header>   
+    </q-layout-header>
 
     <q-page-container>
       <!-- This is where pages get injected -->

@@ -23,6 +23,5 @@ export default function (/* { store, ssrContext } */) {
   })
 
   // Router.beforeEach(beforeEach)
-  
   return Router
 }
