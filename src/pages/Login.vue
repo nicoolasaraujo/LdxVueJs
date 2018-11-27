@@ -23,7 +23,7 @@
           dark
           helper= "Digite seu login ldap"
         >
-        <q-input :suffix="" v-model="username" :float-label="capitalize($t('label.user'))"/>
+        <q-input :suffix="ldxEmail" v-model="username" :float-label="capitalize($t('label.user'))"/>
         </q-field>
         <q-field
         >
@@ -33,13 +33,14 @@
         </q-btn>
       </q-card-main>
     </q-card>
-  </q-page>/
+  </q-page>
 </template>
 
 <script>
 import { format } from 'quasar'
 import  axios  from 'axios';
 const { capitalize } = format
+import { LocalStorage, SessionStorage  } from 'quasar'
 
 export default {
   name: 'Login',
@@ -56,17 +57,18 @@ export default {
   computed:{
     fullUsername: function(){ return this.username ? this.username + this.ldxEmail: undefined },
     dataSent: function () {
-      var data = {"UserName": this.username, "PassWd": this.password}
+      var data = {"username": this.fullUsername, "password": this.password}
       return data
     }
   },
   methods: {
     submit () {
        console.log('Usuário' + this.fullUsername + 'Senha ' + this.password)
-       axios.post('http://localhost:5000/api/LoginController',this.dataSent)
+       axios.post('/landix/login/',this.dataSent)
        .then(response => {
+          console.log(response.data.)
           console.log("Deu certo")
-          alert("Bem vindo "+ this.username)
+          // alert("Bem vindo "+ )
         })
        .catch(e => {console.log("Deu ruim")})
     }
