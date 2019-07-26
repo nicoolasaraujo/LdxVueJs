@@ -45,8 +45,8 @@ export default {
   //  Modelo de dados
   data () {
     return {
-      username: undefined,
-      password: undefined,
+      username: 'nicolasnogueira',
+      password: 'JoPYF3fT',
       ldxEmail: '@landix.com.br',
       capitalize
     }
@@ -58,13 +58,22 @@ export default {
       return data
     }
   },
+  mounted: {
+
+  },
   methods: {
     submit () {
-      console.log('Usuário' + this.fullUsername + 'Senha ' + this.password)
+      console.log('UsuĂ¡rio' + this.fullUsername + 'Senha ' + this.password)
       this.$axios.post('/landix/login/', this.dataSent)
         .then(response => {
-          this.$emmit('logged')
+          this.$q.sessionStorage.set('user', response.data)
+          this.$store.commit('setUser', this.$q.sessionStorage.get.item('user'))
           console.log(response)
+          this.$emmit('logged ')
+          this.$q.notify({
+            type: 'positive',
+            message: 'Login realizado com sucesso.'
+          })
           console.log('Deu certo')
           // alert("Bem vindo "+ )
         })
@@ -74,6 +83,10 @@ export default {
   watch: {
     username: data => {
       console.log('Assistindo ' + data)
+      this.$q.notify({
+        type: 'positive',
+        message: 'Login realizado com sucesso.'
+      })
     }
   }
 }
